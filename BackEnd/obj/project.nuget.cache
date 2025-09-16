@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dreSdv6LnSM=",
+  "dgSpecHash": "UDAXR+oshYU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\Proyecto\\BackEnd\\BackEnd.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\ProyectoGit\\Prueba-Tecnica-Cristian-Aviles\\BackEnd\\BackEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
