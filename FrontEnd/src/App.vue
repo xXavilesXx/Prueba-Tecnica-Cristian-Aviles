@@ -47,7 +47,7 @@
         <input v-model.number="saldo" class="form-control" type="number" placeholder="Saldo inicial" />
         <button class="btn btn-success" @click="girarRuleta()">Iniciar Juego</button>
         <button class="btn btn-success" @click="guardarDatos()">Guardar</button>
-        <button class="btn btn-primary">Cargar saldo</button>
+        <button class="btn btn-primary" @click="ObtenerSaldo()">Cargar saldo</button>
 
       </div>
 
@@ -69,6 +69,7 @@ import ProcesarDatosService from "./Services/ProcesarDatosService";
 import type {GirarRuletaDto} from "./Models/GirarRuletaDto";
 import type { RespuestaDto }  from "./Models/RespuestaDto";
 import type { USUARIOSXMONTO } from './Models/USUARIOSXMONTO';
+import type { UsuarioDto } from './Models/UsuarioDto';
 
 // Estado del jugador
 const nombre = ref('')
@@ -115,12 +116,33 @@ async function guardarDatos() {
   try{
 
     const data = await service.GuardarDatos(UsuXMonto.value);
-    const Bandera:boolean = data;
-    console.log(Bandera)
-    if(Bandera){
+    const SeGuardo:boolean = data;
+    if(SeGuardo){
       alert(`Se guardó correctamente.`);
     }else{
       alert(`No se pudo guardar.`);
+    }
+  }catch(error){
+    alert('Error');
+  }
+};
+
+const Usuario = computed<UsuarioDto>(() => ({
+  Usuario: nombre.value
+}));
+
+const resultadoSaldo = ref<USUARIOSXMONTO | null>(null);
+
+async function ObtenerSaldo() {
+  
+  try{
+    const data = await service.ObtenerSaldo(Usuario.value);
+    resultadoSaldo.value = data;
+    if(resultadoSaldo.value.monto != null){
+      saldo.value = resultadoSaldo.value?.monto;
+      alert(`Trajo la información correctamente.`);
+    }else{
+      alert(`No existe información.`);
     }
   }catch(error){
     alert('Error');
