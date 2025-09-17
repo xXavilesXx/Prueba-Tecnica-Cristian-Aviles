@@ -1,16 +1,17 @@
 using System.Data;
 using BackEnd.Models;
+using BackEnd.Services;
 using Dapper;
 
 namespace BackEnd.Data;
 
 public class UsuarioXMontoRepository
 {
-    private readonly IDbConnection _dbConnection;
+    private readonly IDbConnectionFactory _connectionFactory;
 
-    public UsuarioXMontoRepository(IDbConnection dbConnection)
+     public UsuarioXMontoRepository(IDbConnectionFactory connectionFactory)
     {
-        _dbConnection = dbConnection;
+        _connectionFactory = connectionFactory;
     }
     public async Task<bool> Insert(USUARIOSXMONTOS UsuariosXMonto)
     {
@@ -22,7 +23,8 @@ public class UsuarioXMontoRepository
                     WHEN NOT MATCHED THEN
                         INSERT (USUARIO, MONTO)
                         VALUES (origen.USUARIO, origen.MONTO);";
-        var rowsAffected = await _dbConnection.ExecuteAsync(sql, UsuariosXMonto);
+        using var conn = _connectionFactory.CreateConnection();
+        var rowsAffected = await conn.ExecuteAsync(sql, UsuariosXMonto);
         return rowsAffected > 0;
     }
 }

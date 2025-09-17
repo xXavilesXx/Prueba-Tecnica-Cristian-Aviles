@@ -11,15 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<UsuarioXMontoRepository>();
 builder.Services.AddScoped<ProcesarAzar>();
 builder.Services.AddScoped<UsuarioXMontoService>();
-builder.Services.AddScoped<UsuarioXMontoRepository>();
 builder.Services.AddScoped<GirarRuletaService>();
+builder.Services.AddScoped<CargarMontoRepository>();
+builder.Services.AddScoped<CargarMontoService>();
+builder.Services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
 
-
-// Conexión a la BD
-builder.Services.AddScoped<IDbConnection>(sp =>
-    new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddCors(options =>
 {
