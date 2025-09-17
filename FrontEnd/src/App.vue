@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>🎰 Ruleta</h1>
+    <h1>🎰 El Juego De La Ruleta</h1>
 
     
       <div class="d-grid gap-3">
